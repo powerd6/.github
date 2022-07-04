@@ -1,0 +1,24 @@
+- name: bug
+  description: Something isn't working
+  color: fd7f6f
+- name: documentation
+  description: Improvements or additions to documentation
+  color: 7eb0d5
+- name: duplicate
+  description: This issue or pull request already exists or was already discussed
+  color: ffee65
+- name: enhancement
+  description: New feature or request
+  color: b2e061
+- name: good first issue
+  description: Good for newcomers
+  color: bd7ebe
+- name: help wanted
+  description: Extra attention is needed
+  color: beb9db
+- name: question
+  description: Further information is requested
+  color: 8bd3c7
+- name: wontfix
+  description: This will not be worked on 
+  color: d7e1ee
