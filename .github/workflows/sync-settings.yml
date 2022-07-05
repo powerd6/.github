@@ -1,0 +1,35 @@
+# This workflow sets all the repository settings to a standard.
+
+name: Sync Settings
+
+on:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * *' # Runs at midnight
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: kbrashears5/github-action-repo-settings-sync@v1.0.0
+         with:
+          REPOSITORIES: |
+            powerd6/.github
+          # Add more repositories with the <owner>/<repository> syntax below
+          ALLOW_ISSUES: 'true'
+          ALLOW_PROJECTS: 'true'
+          ALLOW_WIKI: 'false'
+          SQUASH_MERGE: 'true'
+          MERGE_COMMIT: 'false'
+          REBASE_MERGE: 'false'
+          AUTO_MERGE: 'false'
+          DELETE_HEAD: 'true'
+          BRANCH_PROTECTION_NAME: 'main'
+          BRANCH_PROTECTION_DISMISS: 'true'
+          TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
