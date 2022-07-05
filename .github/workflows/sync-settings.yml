@@ -21,6 +21,7 @@ jobs:
         with:
           REPOSITORIES: |
             powerd6/.github
+            powerd6/module-template
           # Add more repositories with the <owner>/<repository> syntax below
           ALLOW_ISSUES: 'true'
           ALLOW_PROJECTS: 'true'

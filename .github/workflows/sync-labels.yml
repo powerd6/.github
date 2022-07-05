@@ -25,4 +25,5 @@ jobs:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: |
               powerd6/.github
+              powerd6/module-template
             # Add more repositories with the <owner>/<repository> syntax below
