@@ -26,4 +26,5 @@ jobs:
           repository: |
               powerd6/.github
               powerd6/module-template
+              powerd6/experiments
             # Add more repositories with the <owner>/<repository> syntax below
