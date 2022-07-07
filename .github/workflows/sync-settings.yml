@@ -19,10 +19,7 @@ jobs:
     steps:
       - uses: kbrashears5/github-action-repo-settings-sync@v1.0.0
         with:
-          REPOSITORIES: |
-            powerd6/.github
-            powerd6/module-template
-            powerd6/experiments
+          REPOSITORIES: ${{ secrets.REPOSITORY_LIST }}
           # Add more repositories with the <owner>/<repository> syntax below
           ALLOW_ISSUES: 'true'
           ALLOW_PROJECTS: 'true'
