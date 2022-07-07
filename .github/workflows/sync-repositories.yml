@@ -6,7 +6,8 @@
 name: Sync Repositories
 
 env:
-  repositories: |
+  # Add more repositories with the <owner>/<repository> syntax below
+  REPOSITORIES: |
     powerd6/.github
     powerd6/module-template
     powerd6/experiments
@@ -29,12 +30,7 @@ jobs:
     steps:
       - uses: kbrashears5/github-action-repo-settings-sync@v1.0.0
         with:
-          REPOSITORIES: |
-            powerd6/.github
-            powerd6/module-template
-            powerd6/experiments
-            powerd6/insider
-          # Add more repositories with the <owner>/<repository> syntax below
+          REPOSITORIES: ${{ env.REPOSITORIES }}
           ALLOW_ISSUES: 'true'
           ALLOW_PROJECTS: 'true'
           ALLOW_WIKI: 'false'
@@ -57,8 +53,4 @@ jobs:
         with:
           manifest: .github/labels.yml
           token: ${{ secrets.PERSONAL_TOKEN }}
-          repository: |
-            powerd6/.github
-            powerd6/module-template
-            powerd6/experiments
-            powerd6/insider
+          repository: ${{ env.REPOSITORIES }}
