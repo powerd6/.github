@@ -1,6 +1,17 @@
 # This workflow sets all the repository settings to a standard.
+# This includes:
+#   - The repositorires configuration
+#   - The repositories labels
 
-name: Sync Settings
+name: Sync Repositories
+
+env:
+  # Add more repositories with the <owner>/<repository> syntax below
+  REPOSITORIES: |
+    powerd6/.github
+    powerd6/module-template
+    powerd6/experiments
+    powerd6/insider
 
 on:
   push:
@@ -13,17 +24,13 @@ on:
 
 
 jobs:
-  build:
+  sync-settings:
     runs-on: ubuntu-latest
     
     steps:
       - uses: kbrashears5/github-action-repo-settings-sync@v1.0.0
         with:
-          REPOSITORIES: |
-            powerd6/.github
-            powerd6/module-template
-            powerd6/experiments
-          # Add more repositories with the <owner>/<repository> syntax below
+          REPOSITORIES: ${{ env.REPOSITORIES }}
           ALLOW_ISSUES: 'true'
           ALLOW_PROJECTS: 'true'
           ALLOW_WIKI: 'false'
@@ -35,3 +42,15 @@ jobs:
           BRANCH_PROTECTION_NAME: 'main'
           BRANCH_PROTECTION_DISMISS: 'true'
           TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
+
+  sync-labels:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: micnncim/action-label-syncer@v1
+        with:
+          manifest: .github/labels.yml
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          repository: ${{ env.REPOSITORIES }}
