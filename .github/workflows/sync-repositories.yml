@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: kbrashears5/github-action-repo-settings-sync@v1.2.0
+      - uses: kbrashears5/github-action-repo-settings-sync@v1.2
         with:
           REPOSITORIES: ${{ env.REPOSITORIES }}
           ALLOW_ISSUES: 'true'
