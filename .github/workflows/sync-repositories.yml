@@ -12,6 +12,7 @@ env:
     powerd6/module-template
     powerd6/experiments
     powerd6/insider
+    powerd6/core
 
 on:
   push:
