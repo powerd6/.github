@@ -7,9 +7,6 @@ name: Check PR
 on:
   workflow_call:
     inputs:
-      username:
-        required: true
-        type: string
     secrets:
       GITHUB_REVIEWER_TOKEN:
         required: true
