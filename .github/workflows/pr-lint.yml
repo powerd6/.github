@@ -6,7 +6,6 @@ name: Lint PR
 
 on:
   workflow_call:
-    inputs:
     secrets:
       REVIEWER_TOKEN:
         required: true
