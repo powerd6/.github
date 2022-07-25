@@ -15,7 +15,8 @@ A central repository for the powerd6 project
       - List of repositories is set on the workflow definition
 
 - [![Check PR](https://github.com/powerd6/.github/actions/workflows/check-pr.yml/badge.svg)](https://github.com/powerd6/.github/actions/workflows/check-pr.yml)
-  - Responsible for checking the quality of PR titles
+  - Responsible for checking the quality of PR titles.
+    - Uses "PR Lint" reusable workflow.
 
 ### Re-usable workflows
 
