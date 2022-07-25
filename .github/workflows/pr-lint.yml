@@ -1,8 +1,8 @@
-# This workflow checks the quality of PRs (not their commits)
+# This workflow asserts the quality of PRs, but not their commits
 # This includes:
 #   - The PR title follows conventional commits
 
-name: Check PR
+name: Lint PR
 
 on:
   workflow_call:

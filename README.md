@@ -14,12 +14,12 @@ A central repository for the powerd6 project
     - Responsible for setting a standard group of labels across all repositories
       - List of repositories is set on the workflow definition
 
-- [![Check PR](https://github.com/powerd6/.github/actions/workflows/pr-lint.yml/badge.svg)](https://github.com/powerd6/.github/actions/workflows/pr-lint.yml)
+- [![Check PR](https://github.com/powerd6/.github/actions/workflows/check-pr.yml/badge.svg)](https://github.com/powerd6/.github/actions/workflows/check-pr.yml)
   - Responsible for checking the quality of PR titles
 
 ### Re-usable workflows
 
-- Check PR
+- PR Lint
 
   - Responsible for checking the quality of PR titles
   - Usage:
@@ -27,7 +27,7 @@ A central repository for the powerd6 project
     ```yaml
     jobs:
       lint-pr:
-        uses: powerd6/.github/.github/workflows/reusable/pr-lint.yml@main
+        uses: powerd6/.github/.github/workflows/pr-lint.yml@main
         secrets:
           REVIEWER_TOKEN: ${{ secrets.REVIEWER_TOKEN }}
     ```
