@@ -1,0 +1,11 @@
+name: Lint PRs
+
+on:
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  lint-pr:
+    uses: ./.github/workflows/reusable/pr-lint.yml
+    secrets: inherit
