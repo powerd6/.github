@@ -1,0 +1,19 @@
+# This workflow asserts the quality of PRs, but not their commits
+# This includes:
+#   - The PR title follows conventional commits
+
+name: Lint PR
+
+on:
+  workflow_call:
+    secrets:
+      REVIEWER_TOKEN:
+        required: true
+
+jobs:
+  conventional_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.REVIEWER_TOKEN }}
