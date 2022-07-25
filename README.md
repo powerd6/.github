@@ -12,3 +12,18 @@ A central repository for the powerd6 project
       - Configuration for each label is stored on `.github/labels.yml`
     - Responsible for setting a standard group of labels across all repositories
       - List of repositories is set on the workflow definition
+- [![Check PR](https://github.com/powerd6/.github/actions/workflows/pr-lint.yml/badge.svg)](https://github.com/powerd6/.github/actions/workflows/pr-lint.yml)
+  - Responsible for checking the quality of PR titles
+
+### Re-usable workflows
+
+- Check PR
+  - Responsible for checking the quality of PR titles
+  - Usage:
+      ```yaml
+      jobs:
+        lint-pr:
+          uses: powerd6/.github/.github/workflows/reusable/pr-lint.yml@main
+          secrets:
+            GITHUB_REVIEWER_TOKEN: ${{ secrets.GITHUB_REVIEWER_TOKEN }}
+      ```
