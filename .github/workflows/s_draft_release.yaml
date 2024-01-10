@@ -1,0 +1,83 @@
+name: Draft Release
+
+concurrency:
+  cancel-in-progress: false
+  group: '${{ github.workflow }}'
+
+on:
+  workflow_call:
+    inputs:
+      version_tag:
+        description: The version tag for the release
+        type: string
+        required: true
+      branch:
+        description: The name of the branch that has the release changes
+        type: string
+        required: true
+    secrets:
+      GH_ADMIN_TOKEN:
+        description: The github token with permissions to commit
+        required: true
+          
+permissions:
+  contents: write
+
+jobs:
+  create:
+    name: Create Pull Request
+    runs-on: ubuntu-latest
+    outputs:
+      pr: ${{ steps.pr.outputs.link }}
+    env:
+      VERSION: ${{ inputs.version_tag }}
+      GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.branch }}
+      - name: Create Pull Request
+        id: pr
+        run: |-
+          PR_URL=$(gh pr create --title "chore: prepare release for $VERSION" --body "")
+          echo "link=$PR_URL" >> "$GITHUB_OUTPUT"
+      - name: Document
+        run: |-
+          echo "[PR link](${{ steps.pr.outputs.link }})" >> "$GITHUB_STEP_SUMMARY"
+  merge:
+    name: Merge Pull Request
+    runs-on: ubuntu-latest
+    needs: create
+    env:
+      PR_URL: ${{ needs.create.outputs.pr }}
+      GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Merge PR
+        run: gh pr merge "$PR_URL" --admin --squash
+  draft:
+    name: Draft release
+    runs-on: ubuntu-latest
+    needs:
+      - create
+      - merge
+    outputs:
+      release: ${{ steps.release.outputs.link }}
+    env:
+      VERSION: ${{ inputs.version_tag }}
+      GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create Release
+        id: release
+        run: |-
+          RELEASE_URL=$(gh release create "$VERSION" \
+          --target main \
+          --title "$VERSION" \
+          --generate-notes \
+          --latest \
+          --draft)
+          echo "link=$RELEASE_URL" >> "$GITHUB_OUTPUT"
+      - name: Document
+        run: |-
+          echo "[Release link](${{ steps.release.outputs.link }})" >> "$GITHUB_STEP_SUMMARY"
