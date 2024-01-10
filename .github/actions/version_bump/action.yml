@@ -53,6 +53,7 @@ runs:
           git add .semver.yaml
           git commit -m "update .semver.yaml"
       - name: Document
+        shell: bash
         run: |-
           {
             echo "Versions numbers:"
