@@ -52,3 +52,13 @@ runs:
         run: |-
           git add .semver.yaml
           git commit -m "update .semver.yaml"
+      - name: Document
+        run: |-
+          {
+            echo "Versions numbers:"
+            echo "Current: ${{ steps.current.outputs.number }}"
+            echo "Next: ${{ steps.next.outputs.number }}"
+            echo "Versions tags:"
+            echo "Current: ${{ steps.current.outputs.tag }}"
+            echo "Next: ${{ steps.next.outputs.tag }}"
+          } >> "$GITHUB_STEP_SUMMARY"
