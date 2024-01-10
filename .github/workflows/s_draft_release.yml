@@ -2,7 +2,7 @@ name: Draft Release
 
 concurrency:
   cancel-in-progress: false
-  group: '${{ github.workflow }}'
+  group: '${{ github.workflow }} ${{ inputs.version_tag }}'
 
 on:
   workflow_call:
