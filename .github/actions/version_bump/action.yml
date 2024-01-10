@@ -34,7 +34,7 @@ runs:
         id: current
         shell: bash
         run: |-
-          echo "CURRENT=$(semver get release)"
+          CURRENT=$(semver get release)
           echo "tag=$CURRENT" >> "$GITHUB_OUTPUT"
           echo "number=$(echo $CURRENT | sed 's/v//')" >> "$GITHUB_OUTPUT"
       - name: Get next version
@@ -44,7 +44,7 @@ runs:
           FLAG: ${{ inputs.release_type == 'patch' && 'release' || inputs.release_type}}
         run: |-
           semver up "$FLAG"
-          echo "NEXT=$(semver get release)"
+          NEXT=$(semver get release)
           echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
           echo "number=$(echo $NEXT | sed 's/v//')" >> "$GITHUB_OUTPUT"
       - name: Prepare commit
