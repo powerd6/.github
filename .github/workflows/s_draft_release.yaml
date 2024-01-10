@@ -15,7 +15,6 @@ on:
         description: The name of the branch that has the release changes
         type: string
         required: true
-        default: ${{ github.run_id }}
     secrets:
       GH_ADMIN_TOKEN:
         description: The github token with permissions to commit

@@ -3,7 +3,6 @@ description: Fetches the current version and calculates the next version
 inputs:
   release_type:
     description: Which type of release is this?
-    required: true
     type: choice
     options:
       - patch
