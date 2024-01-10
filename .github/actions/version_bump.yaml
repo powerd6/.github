@@ -16,17 +16,17 @@ inputs:
     type: bool
     default: false
 outputs:
-  current:
-    description: The version before any increments
+  current_tag:
+    description: The version before any increments, with a tag prefix. (ex "v1.2.3")
     value: ${{ steps.current.outputs.tag }}
-  current_raw:
-    description: Similar to current, but without the `v` prefix
+  current_number:
+    description: The version before any increments. (ex "1.2.3")
     value: ${{ steps.current.outputs.number }}
-  next:
-    description: The version after any increments
+  next_tag:
+    description: The version after any increments, with a tag prefix. (ex "v1.2.3")
     value: ${{ steps.next.outputs.tag }}
-  next_raw:
-    description: Similar to next, but without the `v` prefix
+  next_number:
+    description: The version after any increments. (ex "1.2.3")
     value: ${{ steps.next.outputs.number }}
 runs:
   using: "composite"
