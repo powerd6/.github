@@ -1,0 +1,61 @@
+name: Version bump
+description: Fetches the current version and calculates the next version
+inputs:
+  release_type:
+    description: Which type of release is this?
+    required: true
+    type: choice
+    options:
+      - patch
+      - minor
+      - major
+    default: patch
+  should_commit:
+    description: Should this action commit the semver updates?
+    required: false
+    type: bool
+    default: false
+outputs:
+  current:
+    description: The version before any increments
+    value: ${{ steps.current.outputs.tag }}
+  current_raw:
+    description: Similar to current, but without the `v` prefix
+    value: ${{ steps.current.outputs.number }}
+  next:
+    description: The version after any increments
+    value: ${{ steps.next.outputs.tag }}
+  next_raw:
+    description: Similar to next, but without the `v` prefix
+    value: ${{ steps.next.outputs.number }}
+runs:
+  using: "composite"
+  steps:
+      - name: Install semver-cli
+        shell: bash
+        run: |-
+          go install github.com/maykonlf/semver-cli/cmd/semver@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+      - name: Get current version
+        id: current
+        shell: bash
+        run: |-
+          echo "CURRENT=$(semver get release)"
+          echo "tag=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "number=$(echo $CURRENT | sed 's/v//')" >> "$GITHUB_OUTPUT"
+      - name: Get next version
+        id: next
+        shell: bash
+        env:
+          FLAG: ${{ inputs.release_type == 'patch' && 'release' || inputs.release_type}}
+        run: |-
+          semver up "$FLAG"
+          echo "NEXT=$(semver get release)"
+          echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "number=$(echo $NEXT | sed 's/v//')" >> "$GITHUB_OUTPUT"
+      - name: Prepare commit
+        if: ${{ inputs.should_commit == 'true' }}
+        shell: bash
+        run: |-
+          git add .semver.yaml
+          git commit -m "update .semver.yaml"
